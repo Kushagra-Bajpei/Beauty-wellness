@@ -27,18 +27,9 @@ app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
 app.use('/api/reviews', require('./routes/reviewRoutes'));
 
-// ── Health check ────────────────────────────────────────────
-app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'Aura API is running 🚀', timestamp: new Date() });
-});
-
-// ── Serve frontend static files ─────────────────────────────
-const frontendPath = path.join(__dirname, '..', 'frontend');
-app.use(express.static(frontendPath));
-
-// Catch-all — serve index.html for SPA routing
-app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+// ── Root Route ──────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.send('✨ Aura API is running... 🚀');
 });
 
 // ── 404 + Error Handler ──────────────────────────────────────
