@@ -26,6 +26,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
 app.use('/api/reviews', require('./routes/reviewRoutes'));
+app.use('/api/contact', require('./routes/contactRoutes'));
 
 // ── Root Route ──────────────────────────────────────────────
 app.get('/', (req, res) => {
