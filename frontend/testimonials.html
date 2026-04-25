@@ -103,6 +103,7 @@
   <script src="js/script.js"></script>
   <script>
     function renderReviewCard(review) {
+        const rating = review.rating || 5;
         return `
             <div class="glass-card" style="display: flex; flex-direction: column; gap: 1rem; height: 100%; padding: 1.5rem;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -115,7 +116,7 @@
                             <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">${review.company}</p>
                         </div>
                     </div>
-                    <span style="color: #fbbf24; font-size: 0.8rem;">★★★★★</span>
+                    <span style="color: #fbbf24; font-size: 0.8rem;">${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</span>
                 </div>
                 <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin: 0; flex-grow: 1;">
                     "${review.description}"
@@ -131,6 +132,7 @@
             if (data.success) {
                 return data.reviews.map(r => ({
                     id: r._id,
+                    rating: r.rating,
                     description: r.comment,
                     image: r.user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(r.user?.name)}&background=random`,
                     name: r.user?.name || "Anonymous",
