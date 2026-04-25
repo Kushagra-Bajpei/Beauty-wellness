@@ -515,7 +515,7 @@ const API_URL = 'http://localhost:5000/api';
 
 async function loadServices() {
   try {
-    const res = await fetch(`${API_URL}/services`);
+    const res = await fetch(`${API_URL}/services?limit=50`);
     const data = await res.json();
     if (data.success && data.services && data.services.length > 0) {
       // Map _id to id so frontend template variables stay intact
