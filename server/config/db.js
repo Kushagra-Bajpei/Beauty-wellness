@@ -116,7 +116,7 @@ const SERVICES = [
     duration: 60,
     rating: 4.8,
     reviewCount: 77,
-    image: 'https://images.unsplash.com/photo-1594433833899-735634b7175a?w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?q=80&w=1974&auto=format&fit=crop',
     description: 'A game-changing lash lift that curls your natural lashes upward for 6-8 weeks, paired with a tint for dramatic, mascara-free eyes. Zero damage formula.',
     location: 'Andheri West, Mumbai',
     tags: ['popular'],

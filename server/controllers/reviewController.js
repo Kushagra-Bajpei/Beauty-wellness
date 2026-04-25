@@ -67,4 +67,20 @@ const deleteReview = async (req, res) => {
   }
 };
 
-module.exports = { addReview, getReviews, deleteReview };
+// @desc    Get all reviews (global)
+// @route   GET /api/reviews
+// @access  Public
+const getAllReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find()
+      .populate('user', 'name avatar')
+      .populate('service', 'title')
+      .sort({ createdAt: -1 });
+
+    res.json({ success: true, count: reviews.length, reviews });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+module.exports = { addReview, getReviews, getAllReviews, deleteReview };

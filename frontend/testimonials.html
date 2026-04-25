@@ -144,16 +144,42 @@
         `;
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    async function fetchAllReviews() {
+        try {
+            const res = await fetch(`${API_URL}/reviews`);
+            const data = await res.json();
+            if (data.success) {
+                // Map real reviews to the testimonial format
+                const realReviews = data.reviews.map(r => ({
+                    id: r._id,
+                    description: r.comment,
+                    image: r.user?.avatar || `https://ui-avatars.com/api/?name=${r.user?.name}&background=random`,
+                    name: r.user?.name || "Anonymous",
+                    company: r.service?.title || "Review"
+                }));
+                return realReviews;
+            }
+        } catch (err) {
+            console.error('Failed to fetch reviews:', err);
+        }
+        return [];
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
         const columnsContainer = document.getElementById('columns-container');
         if (columnsContainer) {
+            const realReviews = await fetchAllReviews();
+            const combinedTestimonials = [...realReviews, ...verticalTestimonials];
+
             columns.forEach((col, colIndex) => {
                 const columnDiv = document.createElement('div');
                 columnDiv.className = col.className;
 
-                // Clone array to make infinite scroll
-                const items = verticalTestimonials.slice(col.start, col.end);
-                const columnTestimonials = [...items, ...items];
+                // Slice and double for infinite scroll
+                const items = combinedTestimonials.slice(col.start, col.end + combinedTestimonials.length); // Adjusted for dynamic length
+                // For simplicity in the marquee, we'll just take chunks
+                const chunk = combinedTestimonials.filter((_, i) => i % 3 === colIndex);
+                const columnTestimonials = [...chunk, ...chunk];
                 
                 columnDiv.innerHTML = columnTestimonials.map((testimonial, index) =>
                     renderVCard(testimonial, index, colIndex)
