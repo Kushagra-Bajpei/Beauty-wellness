@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonials | Aura</title>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">✨ Aura<span>.</span></a>
+    <div class="nav-center">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="testimonials.html" class="active">Reviews</a>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">🌓</button>
+      <div class="auth-buttons nav-links" id="auth-nav">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="testimonials-page">
+    <div class="testimonials-page-header observe fade-in">
+        <h1>People love us</h1>
+        <p>Real stories from clients and professionals using Aura to elevate their beauty and wellness experience.</p>
+    </div>
+
+    <div class="vertical-marquee-wrapper observe fade-in delay-1">
+        <div class="vertical-marquee-grid" id="columns-container">
+            <!-- Injected by JS -->
+        </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <a href="index.html" class="logo">✨ Aura<span>.</span></a>
+          <p style="color: var(--text-muted); margin-top: 1.5rem; line-height: 1.6;">Your premium destination for beauty and wellness services. We connect you with top-tier professionals for a seamless self-care experience.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Twitter">𝕏</a>
+            <a href="#" aria-label="Instagram">📸</a>
+            <a href="#" aria-label="LinkedIn">💼</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Hair Styling</a></li>
+            <li><a href="services.html">Makeup Artists</a></li>
+            <li><a href="services.html">Spa & Massage</a></li>
+            <li><a href="services.html">Nail Care</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="testimonials.html">Reviews</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact Support</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Stay Updated</h4>
+          <p style="color: var(--text-muted); margin-bottom: 1rem;">Subscribe to our newsletter for the latest beauty tips and exclusive offers.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed successfully!');">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Aura Beauty & Wellness. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    const verticalTestimonials = [
+        { id: 1, description: "Aura helped us reduce booking time drastically. The platform feels premium and reliable.", image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200", name: "Alex Turner", company: "Premium Client" },
+        { id: 2, description: "I found my favorite hairstylist through Aura. It removed a huge amount of friction from my routine.", image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200", name: "Harry Peter", company: "Regular Client" },
+        { id: 3, description: "Aura strikes the right balance between luxury and convenience. It feels like a platform built by real experts.", image: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60", name: "Jason Kim", company: "Wellness Enthusiast" },
+        { id: 4, description: "The provider quality and booking system make planning spa days incredibly easy. Highly recommended.", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&h=100&auto=format&fit=crop", name: "Sofia Martinez", company: "Bride" },
+        { id: 5, description: "Aura allows me to focus on relaxing instead of fighting to find an appointment. Everything works beautifully right out of the box.", image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60", name: "Alex Johnson", company: "Executive" },
+        { id: 6, description: "If you value your time and appearance, Aura is a must-have. It dramatically speeds up booking while keeping the quality top-tier.", image: "https://images.unsplash.com/photo-1701615004837-40d8573b6652?q=80&w=200", name: "Emily Karter", company: "Model" },
+        { id: 7, description: "The interface is gorgeous and the professionals are vetted. It is a win-win for anyone who loves self-care.", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80", name: "Daniel Wong", company: "Client" },
+        { id: 8, description: "Managing my salon appointments has never been easier. The dashboard gives me full control over my wellness schedule.", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80", name: "Priya Sharma", company: "Client" },
+        { id: 9, description: "We discovered our go-to massage therapist on Aura. The verified reviews helped us make the perfect choice.", image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200", name: "David Miller", company: "Client" }
+    ];
+
+    const columns = [
+        { start: 0, end: 3, className: "animate-scroll-up-1 vertical-col" },
+        { start: 3, end: 6, className: "animate-scroll-up-2 vertical-col vertical-col-hidden-md" },
+        { start: 6, end: 9, className: "animate-scroll-up-3 vertical-col vertical-col-hidden-lg" }
+    ];
+
+    function renderVCard(testimonial, index, colIndex) {
+        return `
+            <div class="v-card">
+                <div class="v-card-icon">
+                    <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g stroke="currentColor" stroke-opacity=".7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 13.056c.464 0 .91-.131 1.237-.364.329-.234.513-.55.513-.88v-3.73c0-.33-.184-.647-.513-.88C7.91 6.97 7.464 6.838 7 6.838c-.232 0-.455-.066-.619-.182-.164-.117-.256-.275-.256-.44v-.622c0-.33.184-.646.513-.879.328-.233.773-.364 1.237-.364.232 0 .455-.066.619-.182.164-.117.256-.275.256-.44V2.485c0-.165-.092-.323-.256-.44a1.1 1.1 0 0 0-.619-.181c-1.392 0-2.728.393-3.712 1.092-.985.7-1.538 1.649-1.538 2.638v6.218c0 .33.184.646.513.88.328.233.773.364 1.237.364zm9.83 0c.465 0 .91-.131 1.238-.364.328-.234.513-.55.513-.88v-3.73c0-.33-.184-.647-.513-.88-.328-.233-.773-.364-1.237-.364-.232 0-.455-.066-.619-.182-.164-.117-.256-.275-.256-.44v-.622c0-.33.184-.646.512-.879.329-.233.774-.364 1.238-.364.232 0 .454-.066.619-.182.164-.117.256-.275.256-.44V2.485c0-.165-.092-.323-.256-.44a1.1 1.1 0 0 0-.62-.181c-1.391 0-2.727.393-3.711 1.092-.985.7-1.538 1.649-1.538 2.638v6.218c0 .33.184.646.512.88.329.233.774.364 1.238.364z"/>
+                        </g>
+                    </svg>
+                </div>
+                <p class="v-card-text">
+                    ${testimonial.description}
+                </p>
+                <div class="v-card-author">
+                    <img src="${testimonial.image}" alt="${testimonial.name}" />
+                    <div class="v-card-author-info">
+                        <h4>${testimonial.name}</h4>
+                        <p>${testimonial.company}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const columnsContainer = document.getElementById('columns-container');
+        if (columnsContainer) {
+            columns.forEach((col, colIndex) => {
+                const columnDiv = document.createElement('div');
+                columnDiv.className = col.className;
+
+                // Clone array to make infinite scroll
+                const items = verticalTestimonials.slice(col.start, col.end);
+                const columnTestimonials = [...items, ...items];
+                
+                columnDiv.innerHTML = columnTestimonials.map((testimonial, index) =>
+                    renderVCard(testimonial, index, colIndex)
+                ).join('');
+
+                columnsContainer.appendChild(columnDiv);
+            });
+        }
+    });
+  </script>
+</body>
+</html>
