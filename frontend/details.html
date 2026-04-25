@@ -105,8 +105,9 @@
 
       document.title = `${service.title} | Aura`;
 
-      const reviews = getReviews(id);
-      const allReviews = [...reviews]; // User reviews + we could add mock ones
+      const reviewsRes = await fetch(`${API_URL}/reviews/${id}`);
+      const reviewsData = await reviewsRes.json();
+      const reviews = reviewsData.success ? reviewsData.reviews : [];
 
       document.getElementById('details-container').innerHTML = `
         <div class="observe fade-in">
@@ -118,7 +119,7 @@
           </div>
           
           <div class="details-meta">
-            <span>⭐ ${service.rating} (${service.reviewCount + reviews.length} reviews)</span>
+            <span>⭐ ${service.rating} (${service.reviewCount} reviews)</span>
             <span>⏱️ ${service.duration} mins</span>
             <span>📍 ${service.location}</span>
           </div>
@@ -151,10 +152,10 @@
               reviews.map(r => `
                 <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
                   <div style="display:flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                    <strong>${r.userName}</strong>
+                    <strong>${r.user?.name || 'Anonymous'}</strong>
                     <span style="color:#fbbf24">${'★'.repeat(r.rating)}</span>
                   </div>
-                  <p style="color:var(--text-muted)">${r.text}</p>
+                  <p style="color:var(--text-muted)">${r.comment}</p>
                 </div>
               `).join('')
             }
@@ -227,17 +228,34 @@
 
       const rForm = document.getElementById('review-form');
       if (rForm) {
-        rForm.addEventListener('submit', (e) => {
+        rForm.addEventListener('submit', async (e) => {
           e.preventDefault();
-          const review = {
-            userName: getUser().name,
+          const reviewData = {
+            serviceId: id,
             rating: parseInt(document.getElementById('r-rating').value),
-            text: document.getElementById('r-text').value,
-            date: new Date().toISOString()
+            comment: document.getElementById('r-text').value,
           };
-          saveReview(id, review);
-          showToast('Review added successfully');
-          setTimeout(() => window.location.reload(), 1000);
+          
+          try {
+            const res = await fetch(`${API_URL}/reviews`, {
+              method: 'POST',
+              headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+              },
+              body: JSON.stringify(reviewData)
+            });
+            const data = await res.json();
+            
+            if (data.success) {
+              showToast('Review added successfully');
+              setTimeout(() => window.location.reload(), 1000);
+            } else {
+              showToast(data.message || 'Failed to add review', 'error');
+            }
+          } catch(err) {
+            showToast('Server error', 'error');
+          }
         });
       }
     });
