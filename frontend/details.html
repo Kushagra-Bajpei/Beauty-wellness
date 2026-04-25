@@ -165,7 +165,7 @@
                   <p style="color:var(--text-muted); margin-bottom: 0.8rem;">${r.comment}</p>
                   ${isOwner ? `
                     <div style="display: flex; gap: 1rem;">
-                      <button onclick="prepareEditReview('${r._id}', ${r.rating}, '${r.comment.replace(/'/g, "\\'")}')" style="background:none; border:none; color:var(--primary); cursor:pointer; font-size: 0.85rem; padding:0;">Edit</button>
+                      <button onclick="prepareEditReview('${r._id}')" style="background:none; border:none; color:var(--primary); cursor:pointer; font-size: 0.85rem; padding:0;">Edit</button>
                       <button onclick="handleDeleteReview('${r._id}')" style="background:none; border:none; color:var(--danger); cursor:pointer; font-size: 0.85rem; padding:0;">Delete</button>
                     </div>
                   ` : ''}
@@ -197,12 +197,36 @@
 
       // --- Global Review Actions ---
       let editingReviewId = null;
+      let allReviewsData = reviews; // Store for lookup
 
-      window.prepareEditReview = (id, rating, comment) => {
+      window.prepareEditReview = (id) => {
+        const review = allReviewsData.find(r => r._id === id);
+        if (!review) return;
+
         editingReviewId = id;
-        document.getElementById('r-rating').value = rating;
-        document.getElementById('r-text').value = comment;
-        document.querySelector('#review-form button').textContent = 'Update Review';
+        document.getElementById('r-rating').value = review.rating;
+        document.getElementById('r-text').value = review.comment;
+        
+        // Show update button and cancel option
+        const submitBtn = document.querySelector('#review-form button');
+        submitBtn.textContent = 'Update Review';
+        
+        if (!document.getElementById('cancel-edit')) {
+          const cancelBtn = document.createElement('button');
+          cancelBtn.id = 'cancel-edit';
+          cancelBtn.type = 'button';
+          cancelBtn.className = 'btn btn-outline';
+          cancelBtn.style.marginLeft = '1rem';
+          cancelBtn.textContent = 'Cancel';
+          cancelBtn.onclick = () => {
+            editingReviewId = null;
+            document.getElementById('review-form').reset();
+            submitBtn.textContent = 'Submit Review';
+            cancelBtn.remove();
+          };
+          submitBtn.parentNode.appendChild(cancelBtn);
+        }
+
         document.getElementById('review-form').scrollIntoView({ behavior: 'smooth' });
       };
 
