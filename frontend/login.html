@@ -24,6 +24,7 @@
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="testimonials.html">Reviews</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 1rem;">
@@ -56,6 +57,19 @@
     </div>
   </div>
 
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aura Beauty & Wellness. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="cookies.html">Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="js/data.js"></script>
@@ -75,7 +89,7 @@
         const data = await res.json();
         
         if (data.success) {
-          setUser(data.user, data.token); // Assume data.js has been updated to handle token
+          setUser(data.user, data.token);
           showToast('Login Successful!');
           const urlParams = new URLSearchParams(window.location.search);
           const redirect = urlParams.get('redirect') || 'index.html';

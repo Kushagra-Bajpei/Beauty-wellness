@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Services | Aura</title>
   <script>
-    (function() {
+    (function () {
       const savedTheme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       const theme = savedTheme || (prefersDark ? 'dark' : 'light');
@@ -14,6 +15,7 @@
   </script>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
   <nav>
@@ -40,7 +42,8 @@
     </div>
 
     <div class="search-bar observe fade-in">
-      <input type="text" id="search-input" class="form-input search-input" placeholder="Search for services, providers...">
+      <input type="text" id="search-input" class="form-input search-input"
+        placeholder="Search for services, providers...">
     </div>
 
     <div class="filter-scroll observe fade-in" id="filter-container">
@@ -59,7 +62,8 @@
       <div class="footer-content">
         <div class="footer-col">
           <a href="index.html" class="logo">✨ Aura<span>.</span></a>
-          <p style="color: var(--text-muted); margin-top: 1.5rem; line-height: 1.6;">Your premium destination for beauty and wellness services. We connect you with top-tier professionals for a seamless self-care experience.</p>
+          <p style="color: var(--text-muted); margin-top: 1.5rem; line-height: 1.6;">Your premium destination for beauty
+            and wellness services. We connect you with top-tier professionals for a seamless self-care experience.</p>
           <div class="social-links">
             <a href="#" aria-label="Twitter">𝕏</a>
             <a href="#" aria-label="Instagram">📸</a>
@@ -85,7 +89,8 @@
         </div>
         <div class="footer-col">
           <h4>Stay Updated</h4>
-          <p style="color: var(--text-muted); margin-bottom: 1rem;">Subscribe to our newsletter for the latest beauty tips and exclusive offers.</p>
+          <p style="color: var(--text-muted); margin-bottom: 1rem;">Subscribe to our newsletter for the latest beauty
+            tips and exclusive offers.</p>
           <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed successfully!');">
             <input type="email" placeholder="Enter your email" required>
             <button type="submit">Subscribe</button>
@@ -93,11 +98,11 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2024 Aura Beauty & Wellness. All rights reserved.</p>
+        <p>&copy; 2026 Aura Beauty & Wellness. All rights reserved.</p>
         <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Cookie Settings</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="cookies.html">Cookie Settings</a>
         </div>
       </div>
     </div>
@@ -112,7 +117,7 @@
       const container = document.getElementById('services-container');
       const searchInput = document.getElementById('search-input');
       const filterContainer = document.getElementById('filter-container');
-      
+
       const urlParams = new URLSearchParams(window.location.search);
       let currentCategory = urlParams.get('category') || 'all';
 
@@ -142,8 +147,8 @@
         const query = searchInput.value.toLowerCase();
         const filtered = SERVICES.filter(s => {
           const matchCat = currentCategory === 'all' || s.category === currentCategory;
-          const matchSearch = s.title.toLowerCase().includes(query) || 
-                               s.provider.toLowerCase().includes(query);
+          const matchSearch = s.title.toLowerCase().includes(query) ||
+            s.provider.toLowerCase().includes(query);
           return matchCat && matchSearch;
         });
 
@@ -160,14 +165,14 @@
         ];
 
         container.innerHTML = '';
-        
+
         colConfigs.forEach((col, idx) => {
           const colDiv = document.createElement('div');
           colDiv.className = col.className;
-          
+
           // Distribute items
           const items = filtered.filter((_, i) => i % colConfigs.length === idx);
-          
+
           if (items.length > 0) {
             // Duplicate for infinite scroll effect
             const displayItems = items.length >= 1 ? [...items, ...items, ...items] : items;
@@ -175,7 +180,7 @@
             container.appendChild(colDiv);
           }
         });
-        
+
         if (typeof initAnimations === 'function') {
           setTimeout(initAnimations, 100);
         }
@@ -185,4 +190,5 @@
     });
   </script>
 </body>
+
 </html>

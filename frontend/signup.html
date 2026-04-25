@@ -24,6 +24,7 @@
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="testimonials.html">Reviews</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
     <div style="display: flex; align-items: center; gap: 1rem;">
@@ -35,14 +36,14 @@
     <div class="hero-bg"></div>
     <div class="glass-card auth-card observe fade-in">
       <div class="auth-header">
-        <h2>Create Account</h2>
-        <p>Join Aura today</p>
+        <h2>Join Aura</h2>
+        <p>Create an account to start booking</p>
       </div>
 
       <form id="signup-form">
         <div class="form-group">
           <label class="form-label">Full Name</label>
-          <input type="text" id="name" class="form-input" placeholder="Jane Doe" required>
+          <input type="text" id="name" class="form-input" placeholder="John Doe" required>
         </div>
         <div class="form-group">
           <label class="form-label">Email</label>
@@ -56,9 +57,22 @@
         <button type="submit" class="btn btn-primary btn-full ripple" style="margin-top: 1rem;">Sign Up</button>
       </form>
 
-      <a href="login.html" class="auth-link">Already have an account? Sign In</a>
+      <a href="login.html" class="auth-link">Already have an account? Login</a>
     </div>
   </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Aura Beauty & Wellness. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="cookies.html">Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -72,7 +86,7 @@
       const password = document.getElementById('password').value;
       
       try {
-        const res = await fetch(`${API_URL}/auth/register`, {
+        const res = await fetch(`${API_URL}/auth/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, password })
@@ -81,7 +95,7 @@
         
         if (data.success) {
           setUser(data.user, data.token);
-          showToast('Account Created!');
+          showToast('Account Created Successfully!');
           setTimeout(() => window.location.href = 'index.html', 1000);
         } else {
           showToast(data.message || 'Signup failed', 'error');
