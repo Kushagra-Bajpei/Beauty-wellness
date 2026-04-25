@@ -121,9 +121,12 @@
     </div>
 
     <div class="booking-table-card observe fade-in delay-2">
-      <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+      <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
         <h3 style="font-size: 1.25rem;">All Bookings</h3>
-        <button class="btn btn-outline" onclick="fetchBookings()">Refresh List</button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);" onclick="seedDatabase()">🌱 Seed Services</button>
+          <button class="btn btn-outline" onclick="fetchBookings()">Refresh List</button>
+        </div>
       </div>
       <div style="overflow-x: auto;">
         <table class="booking-table">
@@ -240,6 +243,25 @@
           fetchBookings();
         } else {
           showToast(data.message || 'Update failed', 'error');
+        }
+      } catch (err) {
+        showToast('Server error', 'error');
+      }
+    }
+
+    async function seedDatabase() {
+      if (!confirm('This will reset your services database to default. Continue?')) return;
+      try {
+        const res = await fetch(`${API_URL}/services/seed`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${getToken()}` }
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Database Seeded Successfully!', 'success');
+          setTimeout(() => window.location.reload(), 1500);
+        } else {
+          showToast(data.message || 'Seeding failed', 'error');
         }
       } catch (err) {
         showToast('Server error', 'error');
