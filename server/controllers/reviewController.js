@@ -10,12 +10,6 @@ const addReview = async (req, res) => {
   try {
     const { serviceId, rating, comment } = req.body;
 
-    // Check for duplicate review
-    const existing = await Review.findOne({ user: req.user._id, service: serviceId });
-    if (existing) {
-      return res.status(400).json({ success: false, message: 'You have already reviewed this service' });
-    }
-
     const review = await Review.create({
       user: req.user._id,
       service: serviceId,
@@ -27,6 +21,31 @@ const addReview = async (req, res) => {
     res.status(201).json({ success: true, message: 'Review submitted!', review: populated });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
+  }
+};
+
+// @desc    Update a review
+// @route   PUT /api/reviews/:id
+// @access  Private
+const updateReview = async (req, res) => {
+  try {
+    const review = await Review.findById(req.params.id);
+    if (!review) {
+      return res.status(404).json({ success: false, message: 'Review not found' });
+    }
+
+    if (review.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ success: false, message: 'Not authorized' });
+    }
+
+    const { rating, comment } = req.body;
+    review.rating = rating || review.rating;
+    review.comment = comment || review.comment;
+
+    await review.save();
+    res.json({ success: true, message: 'Review updated', review });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -83,4 +102,4 @@ const getAllReviews = async (req, res) => {
   }
 };
 
-module.exports = { addReview, getReviews, getAllReviews, deleteReview };
+module.exports = { addReview, getReviews, getAllReviews, deleteReview, updateReview };
