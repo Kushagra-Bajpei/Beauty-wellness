@@ -8,7 +8,7 @@ const Service = require('../models/Service');
 // @access  Public
 const getServices = async (req, res) => {
   try {
-    const { search, category, sort, page = 1, limit = 12 } = req.query;
+    const { search, category, sort, page = 1, limit = 50 } = req.query;
     const query = {};
 
     if (search) {
