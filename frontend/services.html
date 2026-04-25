@@ -107,7 +107,7 @@
   <script src="js/script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
-      const grid = document.getElementById('services-grid');
+      const container = document.getElementById('marquee-container');
       const searchInput = document.getElementById('search-input');
       const filterContainer = document.getElementById('filter-container');
       
@@ -142,16 +142,38 @@
         const filtered = SERVICES.filter(s => {
           const matchCat = currentCategory === 'all' || s.category === currentCategory;
           const matchSearch = s.title.toLowerCase().includes(query) || 
-                              s.provider.toLowerCase().includes(query);
+                               s.provider.toLowerCase().includes(query);
           return matchCat && matchSearch;
         });
 
         if (filtered.length === 0) {
-          grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 3rem; color: var(--text-muted);">No services found.</div>`;
+          container.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 3rem; color: var(--text-muted);">No services found.</div>`;
           return;
         }
 
-        grid.innerHTML = filtered.map(createServiceCard).join('');
+        // Columns for marquee
+        const colConfigs = [
+          { className: "animate-scroll-up-1 services-col" },
+          { className: "animate-scroll-up-2 services-col vertical-col-hidden-md" },
+          { className: "animate-scroll-up-3 services-col vertical-col-hidden-lg" }
+        ];
+
+        container.innerHTML = '';
+        
+        colConfigs.forEach((col, idx) => {
+          const colDiv = document.createElement('div');
+          colDiv.className = col.className;
+          
+          // Distribute items
+          const items = filtered.filter((_, i) => i % colConfigs.length === idx);
+          
+          if (items.length > 0) {
+            // Duplicate for infinite scroll effect (only if enough items)
+            const displayItems = items.length > 1 ? [...items, ...items] : items;
+            colDiv.innerHTML = displayItems.map(createServiceCard).join('');
+            container.appendChild(colDiv);
+          }
+        });
         
         // Re-trigger GSAP animations for new elements
         if (typeof initAnimations === 'function') {
