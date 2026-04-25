@@ -174,7 +174,8 @@ const MOCK_SERVICES = [
 ];
 
 let SERVICES = [...MOCK_SERVICES];
-const API_URL = 'http://localhost:5000/api';
+// API Configuration
+const API_URL = 'https://beauty-wellness-q9ls.onrender.com/api';
 
 async function loadServices() {
   try {

@@ -1,5 +1,8 @@
 # ✨ Aura | Premium Beauty & Wellness Marketplace
 
+**Live Demo:** [https://beauty-wellness-iota.vercel.app/](https://beauty-wellness-iota.vercel.app/)  
+**API Backend:** [https://beauty-wellness-q9ls.onrender.com/](https://beauty-wellness-q9ls.onrender.com/)
+
 Aura is a high-end, full-stack marketplace designed for premium beauty and wellness services. It features a stunning glassmorphic UI, secure authentication, and a robust booking management system.
 
 ![Aura Preview](frontend/images/preview.png) *(Note: Placeholder for your screenshot)*
