@@ -47,8 +47,10 @@
       <!-- Injected by JS -->
     </div>
 
-    <div class="services-grid observe fade-in" id="services-container">
-      <!-- Injected by JS -->
+    <div class="services-marquee-wrapper observe fade-in">
+      <div class="services-marquee-grid" id="services-container">
+        <!-- Injected by JS -->
+      </div>
     </div>
   </div>
 
@@ -150,7 +152,29 @@
           return;
         }
 
-        container.innerHTML = filtered.map(createServiceCard).join('');
+        // Columns for marquee
+        const colConfigs = [
+          { className: "animate-scroll-up-1 services-col" },
+          { className: "animate-scroll-up-2 services-col vertical-col-hidden-md" },
+          { className: "animate-scroll-up-3 services-col vertical-col-hidden-lg" }
+        ];
+
+        container.innerHTML = '';
+        
+        colConfigs.forEach((col, idx) => {
+          const colDiv = document.createElement('div');
+          colDiv.className = col.className;
+          
+          // Distribute items
+          const items = filtered.filter((_, i) => i % colConfigs.length === idx);
+          
+          if (items.length > 0) {
+            // Duplicate for infinite scroll effect
+            const displayItems = items.length >= 1 ? [...items, ...items, ...items] : items;
+            colDiv.innerHTML = displayItems.map(createServiceCard).join('');
+            container.appendChild(colDiv);
+          }
+        });
         
         if (typeof initAnimations === 'function') {
           setTimeout(initAnimations, 100);
