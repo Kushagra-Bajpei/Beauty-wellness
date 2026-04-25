@@ -104,18 +104,20 @@
   <script>
     function renderReviewCard(review) {
         return `
-            <div class="glass-card" style="display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+            <div class="glass-card" style="display: flex; flex-direction: column; gap: 1rem; height: 100%; padding: 1.5rem;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <div style="display: flex; align-items: center; gap: 0.8rem;">
-                        <img src="${review.image}" alt="${review.name}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: var(--bg-color); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">
+                            ${review.name.charAt(0)}
+                        </div>
                         <div>
-                            <h4 style="font-size: 0.95rem; margin: 0;">${review.name}</h4>
-                            <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">${review.company}</p>
+                            <h4 style="font-size: 0.9rem; margin: 0;">${review.name}</h4>
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">${review.company}</p>
                         </div>
                     </div>
-                    <span style="color: #fbbf24; font-size: 0.9rem;">★★★★★</span>
+                    <span style="color: #fbbf24; font-size: 0.8rem;">★★★★★</span>
                 </div>
-                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin: 0; flex-grow: 1;">
                     "${review.description}"
                 </p>
             </div>
