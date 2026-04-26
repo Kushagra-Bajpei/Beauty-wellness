@@ -536,7 +536,7 @@ const CATEGORIES = [
   { id: 'Nail Art', label: 'Nail Art', icon: '💅', image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80' },
   { id: 'Makeup', label: 'Makeup', icon: '💄', image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80' },
   { id: 'Spa & Massage', label: 'Spa & Massage', icon: '🧘', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&q=80' },
-  { id: 'Eyebrows & Lashes', label: 'Brows & Lashes', icon: '👁️', image: 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=400&q=80' },
+  { id: 'Eyebrows & Lashes', label: 'Brows & Lashes', icon: '👁️', image: 'https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?w=600&q=80' },
   { id: 'Wellness', label: 'Wellness', icon: '🌸', image: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&q=80' },
   { id: 'Men Grooming', label: 'Men Grooming', icon: '🪒', image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80' },
 ];
