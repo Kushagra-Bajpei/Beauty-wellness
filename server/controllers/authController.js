@@ -21,7 +21,7 @@ const register = async (req, res) => {
     }
 
     let role = 'user';
-    if (email.toLowerCase() === 'kushagrabajpeimbc@gmail.com') {
+    if (email.toLowerCase() === 'anumeetdhami@gmail.com') {
       role = 'admin';
     }
 
