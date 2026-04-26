@@ -1,6 +1,6 @@
-// ============================================================
+
 // js/data.js — Static service data + localStorage helpers
-// ============================================================
+
 
 const MOCK_SERVICES = [
   {
@@ -124,7 +124,7 @@ const MOCK_SERVICES = [
     duration: 60,
     rating: 4.8,
     reviewCount: 77,
-    image: 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?w=600&q=80',
     description: 'A game-changing lash lift that curls your natural lashes upward for 6-8 weeks, paired with a tint for dramatic, mascara-free eyes. Zero damage formula.',
     location: 'Andheri West, Mumbai',
     tags: ['popular'],
@@ -511,8 +511,8 @@ const MOCK_SERVICES = [
 
 let SERVICES = [...MOCK_SERVICES];
 // API Configuration
-const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
-  ? 'http://localhost:5000/api' 
+const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:5000/api'
   : 'https://beauty-wellness-q9ls.onrender.com/api';
 
 async function loadServices() {
@@ -523,35 +523,35 @@ async function loadServices() {
       // Map _id to id so frontend template variables stay intact
       SERVICES = data.services.map(s => ({ ...s, id: s._id || s.id }));
     }
-  } catch(e) {
+  } catch (e) {
     console.log('Using mock services (Backend unavailable)');
   }
   return SERVICES;
 }
 
 const CATEGORIES = [
-  { id: 'all',              label: 'All Services', icon: '✨', image: '' },
-  { id: 'Hair Care',        label: 'Hair Care',    icon: '💇', image: 'https://images.unsplash.com/photo-1560869713-7d0a29430803?w=400&q=80' },
-  { id: 'Skin Care',        label: 'Skin Care',    icon: '🌿', image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&q=80' },
-  { id: 'Nail Art',         label: 'Nail Art',     icon: '💅', image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80' },
-  { id: 'Makeup',           label: 'Makeup',       icon: '💄', image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80' },
-  { id: 'Spa & Massage',    label: 'Spa & Massage',icon: '🧘', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&q=80' },
-  { id: 'Eyebrows & Lashes',label: 'Brows & Lashes',icon:'👁️', image: 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=400&q=80' },
-  { id: 'Wellness',         label: 'Wellness',     icon: '🌸', image: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&q=80' },
-  { id: 'Men Grooming',     label: 'Men Grooming', icon: '🪒', image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80' },
+  { id: 'all', label: 'All Services', icon: '✨', image: '' },
+  { id: 'Hair Care', label: 'Hair Care', icon: '💇', image: 'https://images.unsplash.com/photo-1560869713-7d0a29430803?w=400&q=80' },
+  { id: 'Skin Care', label: 'Skin Care', icon: '🌿', image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&q=80' },
+  { id: 'Nail Art', label: 'Nail Art', icon: '💅', image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&q=80' },
+  { id: 'Makeup', label: 'Makeup', icon: '💄', image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80' },
+  { id: 'Spa & Massage', label: 'Spa & Massage', icon: '🧘', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&q=80' },
+  { id: 'Eyebrows & Lashes', label: 'Brows & Lashes', icon: '👁️', image: 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=400&q=80' },
+  { id: 'Wellness', label: 'Wellness', icon: '🌸', image: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&q=80' },
+  { id: 'Men Grooming', label: 'Men Grooming', icon: '🪒', image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80' },
 ];
 
 // ── LocalStorage helpers ────────────────────────────────────
 const LS = {
-  get:    (k, fb = []) => { try { return JSON.parse(localStorage.getItem(k)) ?? fb; } catch { return fb; } },
-  set:    (k, v)        => localStorage.setItem(k, JSON.stringify(v)),
-  push:   (k, item)     => { const arr = LS.get(k); arr.push(item); LS.set(k, arr); },
+  get: (k, fb = []) => { try { return JSON.parse(localStorage.getItem(k)) ?? fb; } catch { return fb; } },
+  set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
+  push: (k, item) => { const arr = LS.get(k); arr.push(item); LS.set(k, arr); },
 };
 
 // Bookings
-function getBookings()      { return LS.get('aura_bookings', []); }
-function saveBooking(b)     { LS.push('aura_bookings', b); }
-function cancelBooking(id)  {
+function getBookings() { return LS.get('aura_bookings', []); }
+function saveBooking(b) { LS.push('aura_bookings', b); }
+function cancelBooking(id) {
   const all = getBookings().map(b => b.id === id ? { ...b, status: 'cancelled' } : b);
   LS.set('aura_bookings', all);
 }
@@ -561,16 +561,16 @@ function getReviews(serviceId) { return LS.get(`aura_reviews_${serviceId}`, []);
 function saveReview(serviceId, r) { LS.push(`aura_reviews_${serviceId}`, r); }
 
 // Auth & JWT Handlers
-function getToken()  { return localStorage.getItem('aura_token'); }
-function getUser()   { return LS.get('aura_user', null); }
+function getToken() { return localStorage.getItem('aura_token'); }
+function getUser() { return LS.get('aura_user', null); }
 
-function setUser(user, token) { 
-  LS.set('aura_user', user); 
+function setUser(user, token) {
+  LS.set('aura_user', user);
   if (token) localStorage.setItem('aura_token', token);
 }
 
-function logoutUser() { 
-  localStorage.removeItem('aura_user'); 
+function logoutUser() {
+  localStorage.removeItem('aura_user');
   localStorage.removeItem('aura_token');
 }
 
